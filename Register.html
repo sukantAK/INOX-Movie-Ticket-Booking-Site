@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style>
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 5%;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 10px 10px 0px 0px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn-link {
+    color: #007bff;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+}
+
+.invalid-feedback {
+    color: red;
+}
+.card-header.register-header {
+    background-color: #28a745;
+}
+
+.btn-primary.register-button {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary.register-button:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+</style>
+  </head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Registration
+                </div>
+                <div class="card-body">
+                    <form id="registerForm" method="post" action="login.html">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                            <div id="usernameError" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                            <div id="emailError" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                           <label for="password">Password:</label>
+<input type="password" class="form-control" id="password" name="password">
+<div id="passwordError" class="invalid-feedback"></div>
+</div>
+<div class="form-group">
+<label for="confirmPassword">Confirm Password:</label>
+<input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+<div id="confirmPasswordError" class="invalid-feedback"></div>
+</div>
+<button type="button" class="btn btn-primary" id="registerButton">Register</button>
+<a href="login.html" class="btn btn-link">Login</a>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $("#registerButton").click(function() {
+        var username = $("#username").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        if (username.length < 1) {
+            $("#username").addClass("is-invalid");
+            $("#usernameError").html("Please enter a username.");
+            return;
+        } else {
+            $("#username").removeClass("is-invalid");
+            $("#usernameError").html("");
+        }
+
+        if (email.length < 1) {
+            $("#email").addClass("is-invalid");
+            $("#emailError").html("Please enter an email address.");
+            return;
+        } else if (!validateEmail(email)) {
+            $("#email").addClass("is-invalid");
+            $("#emailError").html("Please enter a valid email address.");
+            return;
+        } else {
+            $("#email").removeClass("is-invalid");
+            $("#emailError").html("");
+        }
+
+        if (password.length < 1) {
+            $("#password").addClass("is-invalid");
+            $("#passwordError").html("Please enter a password.");
+            return;
+        } else if (password.length < 8) {
+            $("#password").addClass("is-invalid");
+            $("#passwordError").html("Password must be at least 8 characters long.");
+            return;
+        } else {
+            $("#password").removeClass("is-invalid");
+            $("#passwordError").html("");
+        }
+
+        if (confirmPassword.length < 1) {
+            $("#confirmPassword").addClass("is-invalid");
+            $("#confirmPasswordError").html("Please confirm your password.");
+            return;
+        } else if (password !== confirmPassword) {
+            $("#confirmPassword").addClass("is-invalid");
+            $("#confirmPasswordError").html("Passwords do not match.");
+            return;
+        } else {
+            $("#confirmPassword").removeClass("is-invalid");
+            $("#confirmPasswordError").html("");
+        }
+        $("#registerForm")[0].submit();
+    });
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+</script>
+</body>
+</html>
